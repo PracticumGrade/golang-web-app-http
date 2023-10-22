@@ -1,4 +1,4 @@
-APP_ENTRY ?= basic-http
+APP_ENTRY ?= simplehttpserver
 APP_VERSION ?= rolling
 
 BUILD_TIME := $(shell date -u +%Y%m%d%H%M%S)
@@ -13,7 +13,8 @@ dep_tidy: dep_update
 
 .PHONY: build
 build:
-	CGO_ENABLED=0 go build	-ldflags "-X main.Version=${APP_VERSION} -X main.BuildTime=${BUILD_TIME}" \
+	CGO_ENABLED=0 go build	-a -v \
+							-ldflags "-X main.Version=${APP_VERSION} -X main.BuildTime=${BUILD_TIME}" \
 							-o ./bin/${APP_ENTRY} \
 							./cmd/${APP_ENTRY}
 
