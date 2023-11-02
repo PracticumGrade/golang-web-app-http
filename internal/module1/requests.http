@@ -1,0 +1,11 @@
+###
+GET localhost:8080/hello
+
+###
+GET localhost:8080/version
+
+###
+GET localhost:8080/hello
+
+###
+GET localhost:8080/randomnumber

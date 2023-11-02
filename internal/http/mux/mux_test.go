@@ -1,21 +1,22 @@
-package printermux_test
+package mux_test
 
 import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
 
-	"github.com/PracticumGrade/web-app-http/internal/module1/http/printermux"
+	"github.com/PracticumGrade/web-app-http/internal/http/mux"
 )
 
 func Test_New(t *testing.T) {
-	mux := printermux.New("", "")
+	m := mux.New("", "")
 
 	endpoints := []string{
-		"/hello",
-		"/api",
-		"/version",
-		"/randomnumber",
+		"/printer/hello",
+		"/printer/api",
+		"/printer/version",
+		"/printer/randomnumber",
+		"/restapi/users",
 	}
 
 	for _, endpoint := range endpoints {
@@ -23,7 +24,7 @@ func Test_New(t *testing.T) {
 			w := httptest.NewRecorder()
 			r := httptest.NewRequest(http.MethodGet, endpoint, nil)
 
-			mux.ServeHTTP(w, r)
+			m.ServeHTTP(w, r)
 
 			if w.Result().StatusCode == http.StatusNotFound {
 				t.Errorf("endpoint %s not found in mux", endpoint)

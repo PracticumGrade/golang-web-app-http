@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/PracticumGrade/web-app-http/internal/module1/http/printermux"
+	"github.com/PracticumGrade/web-app-http/internal/http/mux"
 )
 
 var (
@@ -17,11 +17,7 @@ var (
 func main() {
 	fmt.Printf("Version - %s, build time - %s.\n", Version, BuildTime)
 
-	serveMux := http.NewServeMux()
-
-	serveMux.Handle("/", printermux.New(Version, BuildTime))
-
-	err := http.ListenAndServe(`:8080`, serveMux)
+	err := http.ListenAndServe(`:8080`, mux.New(Version, BuildTime))
 	if err != nil {
 		panic(err)
 	}
