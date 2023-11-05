@@ -3,6 +3,8 @@ package mux
 import (
 	"net/http"
 
+	"github.com/PracticumGrade/web-app-http/internal/modules2and3/storage"
+
 	"github.com/PracticumGrade/web-app-http/internal/modules2and3/http/handlers/rest"
 
 	"github.com/PracticumGrade/web-app-http/internal/module1/http/handlers/randomnumberprinter"
@@ -21,7 +23,7 @@ func New(version, buildTime string) *http.ServeMux {
 	m.Handle("/printer/randomnumber",
 		randomnumberprinter.NewRandomNumberPrinter(randomprovider.NewRandomNumberProvider()))
 
-	m.Handle("/restapi/users", rest.NewRESTHandler())
+	m.Handle("/restapi/users", rest.NewRESTHandler(storage.New(".")))
 
 	return m
 }

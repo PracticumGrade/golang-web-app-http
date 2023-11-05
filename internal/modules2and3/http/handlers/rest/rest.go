@@ -17,8 +17,8 @@ type (
 	}
 )
 
-func NewRESTHandler() http.Handler {
-	return &usersManagement{usersStorage: storage.New(".")}
+func NewRESTHandler(userStorage StorageI) http.Handler {
+	return &usersManagement{usersStorage: userStorage}
 }
 
 func (um *usersManagement) ServeHTTP(w http.ResponseWriter, r *http.Request) {
