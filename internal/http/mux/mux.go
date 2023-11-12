@@ -3,6 +3,8 @@ package mux
 import (
 	"net/http"
 
+	"github.com/PracticumGrade/web-app-http/internal/modules2and3/http/handlers/filteredrest"
+
 	"github.com/PracticumGrade/web-app-http/internal/modules2and3/storage"
 
 	"github.com/PracticumGrade/web-app-http/internal/modules2and3/http/handlers/rest"
@@ -15,6 +17,7 @@ import (
 )
 
 func New(version, buildTime string) *http.ServeMux {
+	fileStorage := storage.New(".")
 	m := http.NewServeMux()
 
 	m.HandleFunc("/printer/hello", simpleprinter.MainPage)
@@ -23,7 +26,8 @@ func New(version, buildTime string) *http.ServeMux {
 	m.Handle("/printer/randomnumber",
 		randomnumberprinter.NewRandomNumberPrinter(randomprovider.NewRandomNumberProvider()))
 
-	m.Handle("/restapi/users", rest.NewRESTHandler(storage.New(".")))
+	m.Handle("/restapi/users", rest.NewRESTHandler(fileStorage))
+	m.Handle("/restapi/users/filtered", filteredrest.NewFilteredRESTHandler(fileStorage))
 
 	return m
 }

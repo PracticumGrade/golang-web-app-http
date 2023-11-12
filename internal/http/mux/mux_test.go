@@ -17,6 +17,7 @@ func Test_New(t *testing.T) {
 		"/printer/version",
 		"/printer/randomnumber",
 		"/restapi/users",
+		"/restapi/users/filtered",
 	}
 
 	for _, endpoint := range endpoints {
